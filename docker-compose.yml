@@ -1,0 +1,24 @@
+---
+networks:
+  traefik:
+    external: true
+
+services:
+  sonarr:
+    environment:
+      PUID:
+      PGID:
+      TZ:
+    image: linuxserver/sonarr:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.sonarr.entrypoints=websecure"
+      - "traefik.http.routers.sonarr.rule=Host(`${EXTERNAL_DOMAIN}`)"
+    networks:
+      - traefik
+    restart: unless-stopped
+    volumes:
+      - ./config:/config
+      - ${EXTERNAL_DOWNLOAD_DIR}:${INTERNAL_DOWNLOAD_DIR}
+      - ${EXTERNAL_DATA_DIR}:${INTERNAL_DATA_DIR}
