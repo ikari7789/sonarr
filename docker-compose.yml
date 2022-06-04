@@ -22,6 +22,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./config:/config
+      - ./trash:/trash
       - ${EXTERNAL_DATA_DIR}:${INTERNAL_DATA_DIR}
       - ${EXTERNAL_DOWNLOAD_DIR}:${INTERNAL_DOWNLOAD_DIR}
-      - ${EXTERNAL_TRASH_DIR}:${INTERNAL_TRASH_DIR}
