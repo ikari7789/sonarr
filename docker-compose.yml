@@ -15,10 +15,13 @@ services:
       - "traefik.docker.network=traefik"
       - "traefik.http.routers.sonarr.entrypoints=websecure"
       - "traefik.http.routers.sonarr.rule=Host(`${EXTERNAL_DOMAIN}`)"
+    ports:
+      - 8989:8989
     networks:
       - traefik
     restart: unless-stopped
     volumes:
       - ./config:/config
-      - ${EXTERNAL_DOWNLOAD_DIR}:${INTERNAL_DOWNLOAD_DIR}
       - ${EXTERNAL_DATA_DIR}:${INTERNAL_DATA_DIR}
+      - ${EXTERNAL_DOWNLOAD_DIR}:${INTERNAL_DOWNLOAD_DIR}
+      - ${EXTERNAL_TRASH_DIR}:${INTERNAL_TRASH_DIR}
